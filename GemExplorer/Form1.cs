@@ -12,6 +12,8 @@ namespace GemExplorer
         private Random rand = new Random();
         private int playerX = 0, playerY = 0;
         private int score = 0;
+        private int totalGems = 0;
+
 
         public Form1()
         {
@@ -48,6 +50,8 @@ namespace GemExplorer
 
         private void InitGrid()
         {
+            totalGems = 0; // reset gem count
+
             for (int x = 0; x < gridSize; x++)
             {
                 for (int y = 0; y < gridSize; y++)
@@ -62,7 +66,8 @@ namespace GemExplorer
                     if (rand.Next(0, 100) < 15)
                     {
                         btn.Tag = "diamond";
-                        btn.BackgroundImage = Properties.Resources.gem; // gem.png in Resources
+                        btn.BackgroundImage = Properties.Resources.gem;
+                        totalGems++;
                     }
 
                     gridButtons[x, y] = btn;
@@ -70,6 +75,7 @@ namespace GemExplorer
                 }
             }
         }
+
 
         private void UpdatePlayerPosition()
         {
@@ -89,9 +95,17 @@ namespace GemExplorer
             if (gridButtons[playerX, playerY].Tag.ToString() == "diamond")
             {
                 score++;
+                totalGems--; // one gem collected
                 gridButtons[playerX, playerY].Tag = "empty";
                 label1.Text = $"Score: {score}";
+
+                // Check for game over
+                if (totalGems == 0)
+                {
+                    MessageBox.Show("🎉 Game Over! You collected all gems!", "Gem Explorer");
+                }
             }
+
 
             // Show player
             gridButtons[playerX, playerY].BackgroundImage = Properties.Resources.player; // player.png in Resources
