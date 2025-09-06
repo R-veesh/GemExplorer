@@ -15,6 +15,7 @@ namespace GemExplorer
         private int totalGems = 0;
 
 
+
         public Form1()
         {
             InitializeComponent();
@@ -102,7 +103,7 @@ namespace GemExplorer
                 // Check for game over
                 if (totalGems == 0)
                 {
-                    MessageBox.Show("🎉 Game Over! You collected all gems!", "Gem Explorer");
+                    MessageBox.Show(" Game Over! You collected all gems!", "Gem Explorer");
                 }
             }
 
